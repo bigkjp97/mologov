@@ -6,6 +6,9 @@ import sys
 class Tail():
     def __init__(self):
         self.keyword = "warning"
+        self.job = "warn"
+        self.labelName = "warning"
+        self.pushHost = "192.168.1.1:9091"
         self.reg = CollectorRegistry()
         self.count = Gauge('words_count', 'Count keywords from log', ['keyword'], registry=self.reg)
 
@@ -28,8 +31,8 @@ class Tail():
                     log.seek(where)
                 else:
                     if self.keyword in line:
-                        self.count.labels('warning').inc()
-                        push_to_gateway('192.168.1.1:9091', job='warn', registry=self.reg)
+                        self.count.labels(self.labelName).inc()
+                        push_to_gateway(self.pushHost, job=self.job, registry=self.reg)
                         print(self.count)
 
 
