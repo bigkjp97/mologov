@@ -15,6 +15,7 @@ class Tail():
         self.reg = CollectorRegistry()
         self.count = Gauge(self.matrixName, self.description, [self.labelTag], registry=self.reg)
 
+    # 多线程去跑
     def tail(self):
         # register = CollectorRegistry()
         # count = Gauge('words_count', 'Count keywords from log', ['keyword'],
