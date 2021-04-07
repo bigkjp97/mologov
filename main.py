@@ -1,5 +1,5 @@
 import threading
-import tail
+from utils import tail
 import yaml
 import argparse
 
