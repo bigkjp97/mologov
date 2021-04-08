@@ -1,11 +1,11 @@
 remote_push:
   host: 'localhost:9091'
 config:
-  - job: 'test'
-    # file location
-    file: './test.log'
-    keywords: [ 'test','connection fail' ]
-    label: [ 'test','connection' ]
+#  - job: 'test'
+#    # file location
+#    file: './test.log'
+#    keywords: [ 'test','connection fail' ]
+#    label: [ 'test','connection' ]
   - job: 'warn'
     file: './hello.log'
     keywords: [ 'warning','hello world' ]

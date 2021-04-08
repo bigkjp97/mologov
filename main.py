@@ -2,6 +2,7 @@ import threading
 from utils import tail
 import yaml
 import argparse
+import socket
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
     pushHost = config['remote_push']['host']
     # 'config': [{'job': '', 'file': '', 'keyword': ['', ''], 'label': ['', '']}]
     cases = config['config']
+    hostName = socket.gethostname()
     # threads = []
 
     for case in cases:
@@ -23,7 +25,7 @@ def main():
         keywords = case['keywords']
         label = case['label']
         # 开启多线程
-        t = threading.Thread(target=tail.Tail(file, job, keywords, label, pushHost).tail)
+        t = threading.Thread(target=tail.Tail(file, job, keywords, label, pushHost,hostName).tail)
         t.start()
         # threads.append(t)
 

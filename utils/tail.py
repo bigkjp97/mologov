@@ -1,19 +1,19 @@
 import time
-from prometheus_client import Gauge, push_to_gateway, CollectorRegistry
+from prometheus_client import Gauge, push_to_gateway, CollectorRegistry, start_http_server, instance_ip_grouping_key
 
 
 class Tail():
-    def __init__(self, file, job, keywords, label, pushHost):
+    def __init__(self, file, job, keywords, label, pushHost, hostName):
         self.file = file
         self.job = job
         self.keywords = keywords
-        self.labelTag = 'keyword'
         self.labelName = label
         self.matrixName = 'keywords_count'
         self.description = 'Count keywords from log'
         self.pushHost = pushHost
+        self.hostName = hostName
         self.reg = CollectorRegistry()
-        self.count = Gauge(self.matrixName, self.description, [self.labelTag], registry=self.reg)
+        self.count = Gauge(self.matrixName, self.description, ['keyword', 'instance'], registry=self.reg)
 
     # 多线程去跑
     def tail(self):
@@ -31,6 +31,7 @@ class Tail():
         arrKeywords = self.keywords
         # 该关键词对应的标签名
         arrLabel = self.labelName
+        instance_ip_grouping_key()
         with open(file) as log:
             while True:
                 # 返回文件当前位置，即文件指针当前位置
@@ -46,6 +47,7 @@ class Tail():
                 else:
                     for keyword in arrKeywords:
                         if keyword in line:
-                            self.count.labels(arrLabel[arrKeywords.index(keyword)]).inc()
+                            self.count.labels(keyword=arrLabel[arrKeywords.index(keyword)],
+                                              instance=self.hostName).inc()
                             push_to_gateway(self.pushHost, job=jobName, registry=self.reg)
                             # print(self.count)
