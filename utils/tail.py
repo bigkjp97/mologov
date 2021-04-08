@@ -1,4 +1,5 @@
 import time
+import os
 from prometheus_client import Gauge, push_to_gateway, CollectorRegistry, start_http_server, instance_ip_grouping_key
 
 
@@ -21,17 +22,19 @@ class Tail():
         # 利用File的特性，读一个字节移动一个数据
         file = self.file
         # print(file)
-        # 文件地址所在数组的下标
-        arrIndex = self.file.index(file)
         # 不同日志的采集当对应不同的job名
         jobName = self.job
         # 该文件所需采集的关键词
         arrKeywords = self.keywords
         # 该关键词对应的标签名
         arrLabel = self.labelName
-        instance_ip_grouping_key()
         with open(file) as log:
             while True:
+                # 如果日志清空，则从头读起
+                if os.path.getsize(file) == 0:
+                    log.seek(0, 0)
+                    # 跳出当前循环
+                    # continue
                 # 返回文件当前位置，即文件指针当前位置
                 # 与readline()配合，readline()则按一句一句读
                 where = log.tell()
