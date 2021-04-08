@@ -1,8 +1,0 @@
-# virtual environment
-venv
-# idea
-.idea
-# built exe
-log-monit
-log-monit.zip
-*.log
