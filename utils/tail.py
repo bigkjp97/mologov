@@ -8,12 +8,10 @@ class Tail():
         self.job = job
         self.keywords = keywords
         self.labelName = label
-        self.matrixName = 'keywords_count'
-        self.description = 'Count keywords from log'
         self.pushHost = pushHost
         self.hostName = hostName
         self.reg = CollectorRegistry()
-        self.count = Gauge(self.matrixName, self.description, ['keyword', 'instance'], registry=self.reg)
+        self.count = Gauge('keywords_count', 'Count keywords from log', ['keyword', 'instance'], registry=self.reg)
 
     # 多线程去跑
     def tail(self):
