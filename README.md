@@ -5,6 +5,7 @@ The log-monit is made for monitoring logs in our servers, this tool can push met
 First of all, you need to download [Pushgateway](https://github.com/prometheus/pushgateway) and [Prometheus](https://github.com/prometheus/prometheus), start with
 
 ```shell
+tar xzvf log-monit-linux-amd64.tar.gz
 # If init.yml is in the same directory
 ./log-monit
 # or use this way to start process
