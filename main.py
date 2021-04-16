@@ -28,7 +28,7 @@ def main():
         keywords = case['keywords']
         label = case['label']
         # 开启多线程
-        t = threading.Thread(target=tail.Tail(file, job, keywords, label, hostName).tail_keywords())
+        t = threading.Thread(target=tail.Tail(file, keywords, label, hostName).tail_keywords())
         t.start()
         # threads.append(t)
 

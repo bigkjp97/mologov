@@ -22,8 +22,6 @@ class Tail():
         # 利用File的特性，读一个字节移动一个数据
         file = self.file
         # print(file)
-        # 不同日志的采集当对应不同的job名
-        jobName = self.job
         # 该文件所需采集的关键词
         arrKeywords = self.keywords
         # 该关键词对应的标签名
