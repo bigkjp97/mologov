@@ -1,6 +1,6 @@
-# log-monit
+# mologov
 
-The log-monit is made for monitoring logs in our servers, this tool can push metrics to [Pushgateway](https://github.com/prometheus/pushgateway), then we can collect them with prometheus.
+The mologov(`log-monit`) is made for monitoring logs in our servers.
 
 First of all, you need to download [Pushgateway](https://github.com/prometheus/pushgateway) `not necessary after v1.3`and [Prometheus](https://github.com/prometheus/prometheus), start with
 
