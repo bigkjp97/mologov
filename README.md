@@ -14,7 +14,7 @@ tar xzvf log-monit-linux-amd64.tar.gz
 
 ### Function
 
-This consist of easy code :) I just count the keywords which matched in logs, I will figure some new functions when needed...
+This consist of easy code :), thanks to `prometheus-client` I just count the keywords which matched in logs, I will figure some new functions when needed...
 
 ## init.yml
 
