@@ -1,5 +1,6 @@
 remote_push:
-  host: 'localhost:9091'
+  host: 'localhost'
+  port: '9092'
 config:
 #  - job: 'test'
 #    # file location

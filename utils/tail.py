@@ -1,21 +1,22 @@
 import time
 import os
-from prometheus_client import Gauge, push_to_gateway, CollectorRegistry, start_http_server, instance_ip_grouping_key
+
+from prometheus_client import Gauge
 
 
+# 监听日志方案
 class Tail():
-    def __init__(self, file, job, keywords, label, pushHost, hostName):
+    def __init__(self, file, job, keywords, label, hostName):
         self.file = file
         self.job = job
         self.keywords = keywords
         self.labelName = label
-        self.pushHost = pushHost
         self.hostName = hostName
-        self.reg = CollectorRegistry()
-        self.count = Gauge('keywords_count', 'Count keywords from log', ['keyword', 'instance'], registry=self.reg)
+        self.count = Gauge('keywords_count', 'Count keywords from log', ['keyword', 'instance'])
 
     # 多线程去跑
-    def tail(self):
+    # 监听计数新出现的keywords
+    def tail_keywords(self):
         # register = CollectorRegistry()
         # count = Gauge('words_count', 'Count keywords from log', ['keyword'],
         #               registry=register)
@@ -50,5 +51,6 @@ class Tail():
                         if keyword in line:
                             self.count.labels(keyword=arrLabel[arrKeywords.index(keyword)],
                                               instance=self.hostName).inc()
-                            push_to_gateway(self.pushHost, job=jobName, registry=self.reg)
+                            # push_to_gateway(self.pushHost, job=jobName, registry=self.reg)
+                            # prometheus_client.start_http_server(self.pushPort, self.pushHost)
                             # print(self.count)
