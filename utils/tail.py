@@ -6,9 +6,8 @@ from prometheus_client import Gauge
 
 # 监听日志方案
 class Tail():
-    def __init__(self, file, job, keywords, label, hostName):
+    def __init__(self, file, keywords, label, hostName):
         self.file = file
-        self.job = job
         self.keywords = keywords
         self.labelName = label
         self.hostName = hostName
@@ -51,6 +50,4 @@ class Tail():
                         if keyword in line:
                             self.count.labels(keyword=arrLabel[arrKeywords.index(keyword)],
                                               instance=self.hostName).inc()
-                            # push_to_gateway(self.pushHost, job=jobName, registry=self.reg)
-                            # prometheus_client.start_http_server(self.pushPort, self.pushHost)
-                            # print(self.count)
+

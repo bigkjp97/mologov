@@ -25,7 +25,6 @@ def main():
     start_http_server(pushPort, pushHost)
     for case in cases:
         file = case['file']
-        job = case['job']
         keywords = case['keywords']
         label = case['label']
         # 开启多线程
