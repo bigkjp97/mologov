@@ -2,10 +2,6 @@ remote_push:
   host: 'localhost'
   port: '9092'
 config:
-#    file location
-#  - file: './test.log'
-#    keywords: [ 'test','connection fail' ]
-#    label: [ 'test','connection' ]
   - file: './test.log'
     keywords: [ 'error1','error2' ]
     label: [ 'err1','err2' ]

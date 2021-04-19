@@ -23,21 +23,20 @@ Initialize a configuration
 ```yaml
 remote_push:
   # make sure you have started a pushgateway process
-  host: 'localhost:9091'
+  host: 'localhost'
+  port: '9092'
 config:
-  # job name 
-  - job: 'test1'
     # file location
-    file: 'test1.log'
+  - file: './test.log'
     # keywords you want to count
-    keywords: [ 'test','hello world' ]
+    keywords: [ 'error1','error2' ]
     # name label for each keyword
-    label: [ 'test','hello' ]
-  # add job like this
-  - job: 'test2'
-    file: 'test2.log'
-    keywords: [ 'warning','error connection' ]
-    label: [ 'warn','error' ]
+    label: [ 'err1','err2' ]
+  # add log monitor like this
+  - file: './test.log'
+    keywords: [ 'error1','error2' ]
+    label: [ 'err1','err2' ]
+  # add more
 
 ```
 
