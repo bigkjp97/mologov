@@ -7,11 +7,11 @@ from prometheus_client import Gauge
 # 监听日志方案
 class Tail():
     def __init__(self, file, keywords, label, hostName):
-        self.file = file
-        self.keywords = keywords
-        self.labelName = label
-        self.hostName = hostName
-        self.count = Gauge('keywords_count', 'Count keywords from log', ['keyword', 'instance'])
+        self._file = file
+        self._keywords = keywords
+        self._labelName = label
+        self._hostName = hostName
+        self._count = Gauge('keywords_count', 'Count keywords from log', ['keyword', 'instance'])
 
     # 多线程去跑
     # 监听计数新出现的keywords
@@ -20,12 +20,12 @@ class Tail():
         # count = Gauge('words_count', 'Count keywords from log', ['keyword'],
         #               registry=register)
         # 利用File的特性，读一个字节移动一个数据
-        file = self.file
+        file = self._file
         # print(file)
         # 该文件所需采集的关键词
-        arrKeywords = self.keywords
+        arrKeywords = self._keywords
         # 该关键词对应的标签名
-        arrLabel = self.labelName
+        arrLabel = self._labelName
         with open(file) as log:
             while True:
                 # 如果日志清空，则从头读起
@@ -46,6 +46,5 @@ class Tail():
                 else:
                     for keyword in arrKeywords:
                         if keyword in line:
-                            self.count.labels(keyword=arrLabel[arrKeywords.index(keyword)],
-                                              instance=self.hostName).inc()
-
+                            self._count.labels(keyword=arrLabel[arrKeywords.index(keyword)],
+                                               instance=self._hostName).inc()
