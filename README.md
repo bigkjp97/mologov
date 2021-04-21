@@ -21,23 +21,25 @@ This consist of easy code :), thanks to `prometheus-client` I just count the key
 Initialize a configuration
 
 ```yaml
-remote_push:
+server:
   # make sure you have started a pushgateway process
   host: 'localhost'
   port: '9092'
 config:
     # file location
   - file: './test.log'
+    # keyword_count_test
+    matric: 'test'
     # keywords you want to count
     keywords: [ 'error1','error2' ]
     # name label for each keyword
     label: [ 'err1','err2' ]
-  # add log monitor like this
-  - file: './test.log'
-    keywords: [ 'error1','error2' ]
-    label: [ 'err1','err2' ]
-  # add more
+    # add more
 
+  - file: './hello.log'
+    matric: 'hello'
+    keywords: [ 'error3','error4' ]
+    label: [ 'err3','err4' ]
 ```
 
 
