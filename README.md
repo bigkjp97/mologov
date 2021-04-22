@@ -1,4 +1,4 @@
-# mologov
+# mologov🚀
 
 The mologov(`log-monit`) is made for monitoring logs in our servers.
 
