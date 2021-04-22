@@ -7,9 +7,9 @@ First of all, you need to download [Pushgateway](https://github.com/prometheus/p
 ```shell
 tar xzvf log-monit-linux-amd64.tar.gz
 # If init.yml is in the same directory
-./log-monit
+./mologov
 # or use this way to start process
-./log-monit -f init.yml
+./mologov -f init.yml
 ```
 
 ### Function
