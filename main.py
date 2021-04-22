@@ -1,10 +1,9 @@
 import sys
-import time
 import threading
-
+from utils.output import Output
+from utils.tail import Tail
 from prometheus_client import start_http_server
 
-from utils import tail
 import yaml
 import argparse
 import socket
@@ -23,26 +22,23 @@ def main():
     # 'config': [{'job': '', 'file': '', 'keyword': ['', ''], 'label': ['', '']}]
     cases = config['config']
     hostName = socket.gethostname()
-    print("[MOLOGOV][INFO] " + time.strftime("%Y-%m-%d %H:%M:%S",
-                                       time.localtime()) + " Start - " + pushHost + ":" + pushPort)
+    Output("INFO", "Start - " + pushHost + ":" + pushPort)
     try:
         start_http_server(int(pushPort), pushHost)
     except:
-        print("[MOLOGOV][ERROR] " + time.strftime("%Y-%m-%d %H:%M:%S",
-                                                  time.localtime()) + " Bad server " + pushHost + ":" + pushPort)
+        Output("ERROR", "Bad server " + pushHost + ":" + pushPort)
         sys.exit(1)
 
-    print("[MOLOGOV][INFO] " + time.strftime("%Y-%m-%d %H:%M:%S",
-                                       time.localtime()) + " Start successfully " + pushHost + ":" + pushPort)
+    Output("INFO", "Start successfully " + pushHost + ":" + pushPort)
 
     for case in cases:
         file = case['file']
         keywords = case['keywords']
         label = case['label']
         matric = case['matric']
-        print("[MOLOGOV][INFO] " + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + " Monitoring " + file)
+        Output("INFO", "Monitoring " + file)
         # use multiple threads
-        t = threading.Thread(target=tail.Tail(file, keywords, label, matric, hostName).tail_keywords)
+        t = threading.Thread(target=Tail(file, keywords, label, matric, hostName).start_tail)
         t.start()
 
 
