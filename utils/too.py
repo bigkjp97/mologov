@@ -2,11 +2,31 @@ import time
 import os
 
 from prometheus_client import Gauge
-from utils.output import Output
 
 
-# listen logs
+class Output:
+    """Output information
+    while using this program
+    [MOLOGOV][INFO]
+    [MOLOGOV][ERROR]
+    [MOLOGOV][WARN]
+    """
+
+    def __init__(self, tag, statement):
+        self._time = time.strftime("%Y-%m-%d %H:%M:%S ",
+                                   time.localtime())
+        self._statement = statement
+        self._tag = tag
+
+        print("[MOLOGOV][" + self._tag + "] " + self._time + self._statement)
+
+
 class Tail:
+    """Tail logs
+    use Gauge's inc to increase count
+    while keywords appear in logs
+    """
+
     def __init__(self,
                  file,
                  keywords,
@@ -29,14 +49,14 @@ class Tail:
 
         while self._maxTry < 5:
             try:
-                self.do_tail()
+                self._do_tail()
             except FileNotFoundError:
                 self._maxTry += 1
                 Output("ERROR", "File " + file + " not found")
                 time.sleep(10)
-        Output("INFO", "Stop monitoring " + file)
+        Output("WARN", "Stop monitoring " + file)
 
-    def do_tail(self):
+    def _do_tail(self):
         """Do tailing logs"""
 
         with open(self._file) as log:

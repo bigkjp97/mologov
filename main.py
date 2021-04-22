@@ -1,7 +1,6 @@
 import sys
 import threading
-from utils.output import Output
-from utils.tail import Tail
+from utils.too import Tail, Output
 from prometheus_client import start_http_server
 
 import yaml
@@ -22,14 +21,14 @@ def main():
     # 'config': [{'job': '', 'file': '', 'keyword': ['', ''], 'label': ['', '']}]
     cases = config['config']
     hostName = socket.gethostname()
-    Output("INFO", "Start - " + pushHost + ":" + pushPort)
+    Output("INFO", "Launch your little logs assistant :-)")
     try:
         start_http_server(int(pushPort), pushHost)
     except:
         Output("ERROR", "Bad server " + pushHost + ":" + pushPort)
         sys.exit(1)
 
-    Output("INFO", "Start successfully " + pushHost + ":" + pushPort)
+    Output("INFO", "Start successfully with " + pushHost + ":" + pushPort)
 
     for case in cases:
         file = case['file']
@@ -38,8 +37,9 @@ def main():
         matric = case['matric']
         Output("INFO", "Monitoring " + file)
         # use multiple threads
-        t = threading.Thread(target=Tail(file, keywords, label, matric, hostName).start_tail)
-        t.start()
+        tail = Tail(file, keywords, label, matric, hostName)
+        o = threading.Thread(target=tail.start_tail)
+        o.start()
 
 
 if __name__ == '__main__':
