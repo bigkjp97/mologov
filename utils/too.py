@@ -47,14 +47,14 @@ class Tail:
         """
 
         file = self._file
-        self._set()
+        self._zero()
         while self._maxTry < 5:
             try:
                 self._do_tail()
             except FileNotFoundError:
                 self._maxTry += 1
                 Output("ERROR", "File " + file + " not found")
-                time.sleep(10)
+                time.sleep(600)
         Output("WARN", "Stop monitoring " + file)
 
     def _do_tail(self):
@@ -80,11 +80,12 @@ class Tail:
         """Set label of each keyword
         """
 
+        index = self._keywords.index(keyword)
         return self._count.labels(
-            keyword=self._labelName[self._keywords.index(keyword)],
+            keyword=self._labelName[index],
             instance=self._hostName)
 
-    def _set(self):
+    def _zero(self):
         """Set 0 for each keyword
         """
 

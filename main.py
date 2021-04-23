@@ -1,11 +1,11 @@
 import sys
 import threading
-from utils.too import Tail, Output
-from prometheus_client import start_http_server
-
 import yaml
 import argparse
 import socket
+
+from utils.too import Tail, Output
+from prometheus_client import start_http_server
 
 
 def main():
@@ -35,6 +35,7 @@ def main():
         keywords = case['keywords']
         label = case['label']
         matric = case['matric']
+
         Output("INFO", "Monitoring " + file)
         # use multiple threads
         tail = Tail(file, keywords, label, matric, hostName)
