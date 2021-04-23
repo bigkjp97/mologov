@@ -1,8 +1,8 @@
 # mologov🚀
 
-The mologov(`log-monit`) is made for monitoring logs in our servers.
+Mologov(`log-monit`) is made to monitor logs.
 
-First of all, you need to download [Pushgateway](https://github.com/prometheus/pushgateway) `not necessary after v1.3`and [Prometheus](https://github.com/prometheus/prometheus), start with
+#### unzip and start
 
 ```shell
 tar xzvf log-monit-linux-amd64.tar.gz
@@ -12,13 +12,21 @@ tar xzvf log-monit-linux-amd64.tar.gz
 ./mologov -f init.yml
 ```
 
+#### start with shell script `monit.sh`
+
+```shell
+chmod +x monit.sh
+# start
+./monit.sh start
+```
+
 ### Function
 
-This consist of easy code :), thanks to `prometheus-client` I just count the keywords which matched in logs, I will figure some new functions when need👶...
+Tail and count the keywords which matched in logs, some new functions will be updated when need👶...
 
-## init.yml
+### Configure
 
-Initialize a configuration
+#### *init.yml*
 
 ```yaml
 server:
@@ -26,7 +34,7 @@ server:
   host: 'localhost'
   port: '9092'
 config:
-    # file location
+  # file location
   - file: './test.log'
     # keyword_count_test
     matric: 'test'
