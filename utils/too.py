@@ -45,8 +45,9 @@ class Tail:
         """Try tailing logs,
         move cursor after reading file
         """
-        file = self._file
 
+        file = self._file
+        self._set()
         while self._maxTry < 5:
             try:
                 self._do_tail()
@@ -65,7 +66,7 @@ class Tail:
                 # if log was cleaned, read from start
                 if os.path.getsize(self._file) == 0:
                     log.seek(0, 0)
-                    # off this loop
+                # off this loop
                 where = log.tell()
                 line = log.readline()
                 if not line:
@@ -75,10 +76,25 @@ class Tail:
                 else:
                     self._inc(line)
 
+    def _label(self, keyword):
+        """Set label of each keyword
+        """
+
+        return self._count.labels(
+            keyword=self._labelName[self._keywords.index(keyword)],
+            instance=self._hostName)
+
+    def _set(self):
+        """Set 0 for each keyword
+        """
+
+        for keyword in self._keywords:
+            self._label(keyword).set(0)
+
     def _inc(self, line):
-        """Increase when keyword in line"""
+        """Increase when keyword in line
+        """
 
         for keyword in self._keywords:
             if keyword in line:
-                self._count.labels(keyword=self._labelName[self._keywords.index(keyword)],
-                                   instance=self._hostName).inc()
+                self._label(keyword).inc()
