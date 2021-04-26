@@ -27,7 +27,6 @@ def main():
     except:
         Output("ERROR", "Bad server " + pushHost + ":" + pushPort)
         sys.exit(1)
-
     Output("INFO", "Start successfully with " + pushHost + ":" + pushPort)
 
     for case in cases:
@@ -35,7 +34,6 @@ def main():
         keywords = case['keywords']
         label = case['label']
         matric = case['matric']
-
         Output("INFO", "Monitoring " + file)
         # use multiple threads
         tail = Tail(file, keywords, label, matric, hostName)

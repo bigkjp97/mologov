@@ -5,19 +5,19 @@ Mologov(`log-monit`) is made to monitor logs.
 #### unzip and start
 
 ```shell
-tar xzvf log-monit-linux-amd64.tar.gz
+tar xzvf mologov-linux-amd64.tar.gz
 # If init.yml is in the same directory
 ./mologov
 # or use this way to start process
 ./mologov -f init.yml
 ```
 
-#### start with shell script `monit.sh`
+#### start with shell script `molog`
 
 ```shell
-chmod +x monit.sh
+chmod +x molog
 # start
-./monit.sh start
+./molog start
 ```
 
 ### Function

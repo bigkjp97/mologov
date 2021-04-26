@@ -1,13 +1,19 @@
 server:
   host: 'localhost'
-  port: '9092'
+  port: '9093'
 config:
-  - file: './test.log'
-    matric: 'test'
+  - file: './test1.log'
+    matric: 'test1'
     keywords: [ 'error1','error2' ]
     label: [ 'err1','err2' ]
 
-  - file: './hello.log'
-    matric: 'hello'
+  - file: './test2.log'
+    matric: 'test2'
     keywords: [ 'error3','error4' ]
     label: [ 'err3','err4' ]
+
+  - file: './test3.log'
+    matric: 'test3'
+    keywords: [ 'error5','error6' ]
+    label: [ 'err5','err6' ]
+
